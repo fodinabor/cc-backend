@@ -80,6 +80,18 @@
   const footprintData = footprintMetrics.map((fm) => {
     // Unit
     const fmc = getContext("metrics")(job.cluster, fm);
+    if(fmc === undefined) {
+      return {
+        name: fm,
+        unit: "s",
+        avg: 0,
+        max: 0,
+        color: "info",
+        message: "Metric not configured.",
+        impact: 0,
+      };
+    }
+
     let unit = "";
     if (fmc?.unit?.base) unit = fmc.unit.prefix + fmc.unit.base;
 
